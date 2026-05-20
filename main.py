@@ -58,19 +58,21 @@ def get_weather_coords():
     z = x["weather"]
     weather_desc = z[0]["description"]
 
-
     output = f"It is {temperature}°F with {weather_desc} in {city}. {get_temp_emoji(temperature)}"
     return output
 
+@ui.refreshable
+def weather(input):
+    ui.label(input).classes("text-lg")
 
 #the card acts as a container for the title and buttons below it. I'm too used to divs I needed a faux-div.
 with ui.card().classes('max-w-auto mx-auto mt-20 p-12 gap-12 no-shadow no-border items-center'):
     label = ui.label("what's the weather?").classes('text-h2 text-center')
     with ui.row():
-        location = ui.button(icon="location_on", color="white").props("round unelevated").classes("p-5")
+        ui.button(icon="location_on", color="white", on_click=lambda: weather.refresh(get_weather_coords())).props("round unelevated").classes("p-5")
         enter_location = ui.input("city")
     #output the weather
-    result = ""
+    weather("") #initially empty
 
 
 ui.run(favicon='🌁')
