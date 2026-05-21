@@ -41,7 +41,7 @@ def get_temp_emoji(temp):
         emoji = "🥶"
     return emoji
 
-#function that calls the api to get the current weather
+#function that calls the api to get the current weather using user's coordinates
 def get_weather_coords():
     lat = get_usr_location()[0]
     lon = get_usr_location()[1]
@@ -61,6 +61,10 @@ def get_weather_coords():
     output = f"It is {temperature}°F with {weather_desc} in {city}. {get_temp_emoji(temperature)}"
     return output
 
+# #function that calls the api to get the current weather using user's coordinates
+# def get_weather_input():
+#     pass
+
 @ui.refreshable
 def weather(input):
     ui.label(input).classes("text-lg")
@@ -70,7 +74,7 @@ with ui.card().classes('max-w-auto mx-auto mt-20 p-12 gap-12 no-shadow no-border
     label = ui.label("what's the weather?").classes('text-h2 text-center')
     with ui.row():
         ui.button(icon="location_on", color="white", on_click=lambda: weather.refresh(get_weather_coords())).props("round unelevated").classes("p-5")
-        enter_location = ui.input("city")
+        # ui.input("city")
     #output the weather
     weather("") #initially empty
 
